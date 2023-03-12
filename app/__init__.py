@@ -22,7 +22,10 @@ from .seeds import seed_commands
 
 from .config import Config
 
-app = Flask(__name__, static_folder="react-app/build")
+template_dir = os.path.abspath('react-app/build')
+static_dir = os.path.abspath('react-app/build/static')
+app = Flask(__name__, static_folder=static_dir, template_folder=template_dir)
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # Setup login manager
 login = LoginManager(app)
@@ -46,6 +49,11 @@ app.register_blueprint(bill_routes, url_prefix='/api/bills')
 app.register_blueprint(expense_routes, url_prefix='/api/expenses')
 app.register_blueprint(transaction_record_routes, url_prefix='/api/transaction_records')
 app.register_blueprint(stripe_routes, url_prefix='/api/stripe')
+
+@app.route("/")
+def serve_frontend():
+    return render_template('index.html')
+
 db.init_app(app)
 Migrate(app, db)
 

@@ -2,13 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-
 import configureStore from "./store";
 import { ModalProvider } from "./context/Modal";
 import App from "./App";
 
 import "./index.css";
 
+require('dotenv').config()
 const store = configureStore();
 
 function Root() {
