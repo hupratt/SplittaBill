@@ -29,7 +29,7 @@ def upload_file_to_s3(file):
     print(f"file: {file}, bucket: {BUCKET_NAME}, location: {S3_LOCATION}")
 
     try:
-        s3.upload_file(
+        s3.upload_fileobj(
             file,
             BUCKET_NAME,
             file.filename
@@ -37,4 +37,4 @@ def upload_file_to_s3(file):
     except Exception as e:
         return {"errors": str(e)}
 
-    return {"url": f"{S3_LOCATION}{file}"}
+    return {"url": f"{S3_LOCATION}{file.filename}"}
